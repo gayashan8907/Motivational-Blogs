@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Blog</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+
+    
+  
+    <h1>
+      <%= heading %>
+    </h1>
+
+   <% if (locals.post){ %> 
+    <form id="newPostForm" method="post" action="/api/edit">
+      <input type="hidden" name="editId" value="<%= post.id %>" >
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="<%= post.title %>">
+      </div>
+    
+      
+      <div class="form-group">
+        <label for="content">Content</label>
+        <textarea id="content" name="content"  rows="10"><%= post.content %></textarea>
+      </div>
+    
+      
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input type="text" id="author" name="author" value="<%= post.author %> ">
+      </div>
+    
+      
+      <button class="full-width" type="submit">
+        <%= submit %>
+      </button>
+    </form>
+   
+
+
+    
+    <%} else{ %>
+      <form id="newPostForm" method="post" action="/api/posts">
+       
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" placeholder="Enter title" required>
+        </div>
+      
+        
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea id="content" name="content" placeholder="Write your content here" required rows="10"></textarea>
+        </div>
+      
+        
+        <div class="form-group">
+          <label for="author">Author</label>
+          <input type="text" id="author" name="author" placeholder="Enter author name" required>
+        </div>
+      
+        
+        <button class="full-width" type="submit">
+          <%= submit %>
+        </button>
+      </form>
+     <% } %>   
+
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motivational Blogs</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+
+  
+    <h1>
+      <%= heading %>
+    </h1>
+
+   
+      </button>
+    </form>
+   
+      <form id="newPostForm" method="post" action="/api/sign">
+       
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="title" name="email" placeholder="Email" required>
+        </div>
+      
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="text" id="author" name="password" placeholder="Enter Password" required>
+        </div>
+      
+        
+        <button class="full-width" type="submit">
+          <%= submit %>
+        </button>
+      </form>
+ 
+
+
+</body>
+
+</html>

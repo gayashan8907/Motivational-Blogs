@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivational Blogs</title>
+    <link rel="stylesheet" href="./index.css"/>
+
+</head>
+<body>
+    <h1>Motivational Blogs</h1>
+
+    <a id="newPostBtn" href="/add">New Post</a>
+
+    <% posts.forEach(element => { %>
+        
+        <h2><%= element.title %></h2>
+        <p><%= element.content %></p>
+        <div class="row">
+            <h4>Cteated By:<%= element.author %></h4>
+            <h4><%= element.created_at %></h4>
+        </div>
+        
+        <div class="row">
+            <form action="/edit" method="POST" >
+                <input type="hidden" name="id" value=<%= element.id %>> 
+                <input class="btn" type="submit" value="Edit Post">
+            </form>
+            <form action="/delete" method="POST" >
+                <input type="hidden" name="id" value=<%= element.id %>> 
+                <input class="btn1" type="submit" value="Delete Post">
+            </form>
+
+        </div>
+        
+  <%  }); %>
+   
+</body>
+</html>
