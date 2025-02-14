@@ -9,9 +9,9 @@ const app = express();
 const saltRounds = 5;
 env.config()
 const db = new pg.Client({
-    user:"postgres",
+    user:process.env.USER,
     host:"localhost",
-    database:"motivation",
+    database:process.env.DATABASE,
     password:process.env.PASSWORD,
     port:5432
 })
