@@ -1,3 +1,8 @@
+body{
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+
 h1{
     color: brown;
     text-align: center;
@@ -26,6 +31,16 @@ a{
     font-size: 16px; 
     cursor: pointer; 
   }
+  .btn5 {
+    float: right;
+    padding: 10px 20px; 
+    background-color: #d41581; 
+    color: white;
+    border: none;
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer; 
+  }
   .btn1 {
     padding: 10px 20px; 
     background-color: #d41522; 
@@ -35,42 +50,7 @@ a{
     font-size: 16px; 
     cursor: pointer; 
   }
-  .btn3 {
-    width: 300px;
-    padding: 10px 20px;
-    margin-left: 50px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .btn3:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .btn3:active {
-    background-color: #004080;
-    transform: scale(0.95);
-  }
-  
-  .btn3:focus {
-    outline: 2px solid #0056b3;
-    outline-offset: 2px;
-  }
-  
-  .btn3:disabled {
-    background-color: #cccccc;
-    color: #666666;
-    cursor: not-allowed;
-  }
-
+  .btn3,
   .btn4 {
     width: 300px;
     padding: 10px 20px;
@@ -85,31 +65,30 @@ a{
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
   }
   
+  .btn3:hover,
   .btn4:hover {
     background-color: #0056b3;
     transform: scale(1.05);
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
   }
   
+  .btn3:active,
   .btn4:active {
     background-color: #004080;
     transform: scale(0.95);
   }
   
+  .btn3:focus,
   .btn4:focus {
     outline: 2px solid #0056b3;
     outline-offset: 2px;
   }
   
+  .btn3:disabled,
   .btn4:disabled {
     background-color: #cccccc;
     color: #666666;
     cursor: not-allowed;
-  }
-
-
-  body{
-    font-family:Georgia, 'Times New Roman', Times, serif;
   }
 
 
@@ -179,19 +158,18 @@ a{
     background-color: #004080;
   }
 
-  
-  /* Container for buttons and image */
+ 
 .container {
-  display: flex; /* Align children in a row */
-  align-items:center; /* Vertically center items */
-  gap: 20px; /* Space between buttons and image */
+  display: flex; 
+  align-items:center; 
+  gap: 20px; 
 }
 
-/* Buttons container */
+
 .buttons {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  gap: 10px; /* Space between buttons */
+  flex-direction: column; 
+  gap: 10px; 
 
 }
 .imgadj{
@@ -200,8 +178,8 @@ a{
   align-items: center;
 }
 
-/* Image styling */
+
 .imgadj img {
-  max-width: 50%; /* Ensure the image is responsive */
-  height: auto; /* Maintain aspect ratio */
+  max-width: 50%; 
+  height: auto; 
 }

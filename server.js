@@ -1,6 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import axios from "axios";
+import session from 'express-session';
+import passport from 'passport';
+import { Strategy } from "passport-local";
+
 
 const app = express();
 
@@ -10,6 +14,24 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+app.use(
+  session({
+    secret: 'SECRETWORD',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // 1 day
+      secure: false, // Set to true if using HTTPS
+      httpOnly: true,
+    },
+  })
+);
+
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+
 app.get("/",(req,res)=>{
   res.render("firstPage.ejs")
 })
@@ -17,7 +39,7 @@ app.get("/",(req,res)=>{
 app.post("/register", (req, res) => {
   res.render("register.ejs", { heading: "Register Here", submit: "Register" });
 });
-app.post("/login", (req, res) => {
+app.post("/sign", (req, res) => {
   res.render("sign.ejs", { heading: "Login Here", submit: "Login" });
 });
 
@@ -36,23 +58,7 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-app.post("/api/sign", async (req, res) => {
-  try {
-    const response = await axios.post(`${API_URL}/sign`, req.body);
-    console.log(response.data);
-    if (response.data === 'Incorrect'){
-      res.send("Incorrect password")
-    }else if (response.data === 'notFound') {
-      res.send('User not found')
-    } 
-    else{
-      res.redirect("/home")
-    }
-    
-  } catch (error) {
-    res.status(500).json({ message: "Error creating post" });
-  }
-});
+
 
 app.get("/home",async(req,res)=>{
     try{
@@ -109,6 +115,62 @@ app.get("/add", (req, res) => {
           
         });
 
+
+        passport.use(
+          new Strategy({ usernameField: 'email' }, async (email, password, cb) => {
+            try {
+              // Send a request to the Database Server to authenticate the user
+              const response = await axios.post( `${API_URL}/sign`, { email, password });
+              if (response.data.success === false) {
+                return cb(null, false); // Authentication failed
+              }
+              return cb(null, response.data.user); // Authentication successful
+            } catch (error) {
+              return cb(error);
+            }
+          })
+        );
+        
+        // Serialize user
+        passport.serializeUser((user, cb) => {
+          cb(null, user.id); // Store the user's ID in the session
+        });
+        
+        // Deserialize user
+        passport.deserializeUser(async (id, cb) => {
+          try {
+            // Send a request to the Database Server to fetch the user
+            const response = await axios.get(`${API_URL}/user/${id}`);
+            if (!response.data.user) {
+              return cb(new Error('User not found'));
+            }
+            cb(null, response.data.user); // Return the user object
+          } catch (error) {
+            cb(error);
+          }
+        });
+        app.post('/login', passport.authenticate('local', {
+          successRedirect: '/secret',
+          failureRedirect: '/',
+        }));
+        
+        app.get('/secret', (req, res) => {
+          if (req.isAuthenticated()) {
+            res.redirect('/home');
+          } else {
+            res.redirect('/');
+          }
+        });
+        
+        app.post('/logout', (req, res) => {
+          req.logout((err) => {
+            if (err) {
+              return res.status(500).send('Error logging out');
+            }
+            res.redirect('/');
+          });
+        });     
+        
 app.listen(4000,()=>{
     console.log("server running")
 })
